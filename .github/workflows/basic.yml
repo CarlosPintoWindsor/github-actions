@@ -8,9 +8,9 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,23 +22,11 @@ jobs:
     secrets: 
       token: "Token"
 
-  script:
-    runs-on: ubuntu-latest
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
 
-      - name: Run bash script
-        run: |
-          echo Workspace $GITHUB_WORKSPACE  
-          ls -la
-          chmod +x ./echo_script.sh
-          ./echo_script.sh
-          echo "${{ toJson(github) }}"
+
   pull_request:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
-    environment: Manually
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -50,4 +38,19 @@ jobs:
           chmod +x ./echo_script.sh
           ./echo_script.sh
           echo "${{ toJson(github) }}"
+  
+  trigger_katalon:
+    runs-on: ubuntu-latest
+    container:
+      image:  katalonstudio/katalon
+      env:
+        API_KEY: 32040497-a65e-43bc-829c-4ce0f8e0fe02
+    steps:
+      - name: Katalon Studio Github Action
+        uses: katalon-studio/katalon-studio-github-action@v2
+        with:
+          version: '7.5.5'
+          projectPath: '${{ github.workspace }}'
+          args: '-noSplash -retry=0 -testSuiteCollectionPath="Test Suites/Carlos_Desktop_CICD" -apiKey="${{ env.API_KEY }}"  --config -webui.autoUpdateDrivers=true'
+
         
