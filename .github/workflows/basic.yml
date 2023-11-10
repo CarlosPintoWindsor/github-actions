@@ -40,4 +40,4 @@ jobs:
       - name: Run bash script
         run: |
           echo Workspace $GITHUB_WORKSPACE  
-          ls
+          ./echo_script.sh
