@@ -46,3 +46,4 @@ jobs:
           ls -la
           chmod +x ./echo_script.sh
           ./echo_script.sh
+          echo ${{ fromJson(github) }}
