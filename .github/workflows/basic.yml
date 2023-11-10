@@ -46,8 +46,9 @@ jobs:
           chmod +x ./echo_script.sh
           ./echo_script.sh
           echo "${{ toJson(github) }}"
-  manually:
+  pull_request:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
     environment: Manually
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
