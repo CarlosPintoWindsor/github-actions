@@ -39,5 +39,5 @@ jobs:
     steps:
       - name: Run bash script
         run: |
-          echo Workspace  $GITHUB_WORKSPACE  
-          sh ../../echo_script.sh
+          echo Workspace $GITHUB_WORKSPACE  
+          ls
