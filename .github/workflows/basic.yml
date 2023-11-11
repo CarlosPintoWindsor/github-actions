@@ -45,10 +45,14 @@ jobs:
     container:
       image:  katalonstudio/katalon
     steps:
-      - name: Checkout automatization project
-        run: gh repo clone  --branch masterkrishnatayade/automation_both ${{github.workspace}}
+      - uses: actions/checkout@v3
+        with:
+          repository: krishnatayade/automation_both
+          path: automation_both
+        
+        #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       - name: Katalon Studio Github Action
-        run:  katalonc.sh -noSplash -projectPath=${{github.workspace}}/automation_both -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=${{ env.API_KEY }} -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io
+        run:  katalonc.sh -noSplash projectPath=${{github.workspace}}/automation_both -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=${{ env.API_KEY }} -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io
         # uses: katalon-studio/katalon-studio-github-action@v2
         # with:
         #   version: '7.5.5'
