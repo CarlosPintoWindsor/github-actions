@@ -46,7 +46,7 @@ jobs:
       image:  katalonstudio/katalon
     steps:
       - name: Checkout automatization project
-        run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}
+        run: gh repo clone  --branch masterkrishnatayade/automation_both ${{github.workspace}}
       - name: Katalon Studio Github Action
         run:  katalonc.sh -noSplash -projectPath=${{github.workspace}}/automation_both -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=${{ env.API_KEY }} -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io
         # uses: katalon-studio/katalon-studio-github-action@v2
