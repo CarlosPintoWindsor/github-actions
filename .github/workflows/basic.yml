@@ -49,5 +49,4 @@ jobs:
         uses: katalon-studio/katalon-studio-github-action@v2
         with:
           version: '7.5.5'
-          projectPath: '${{ github.workspace }}'
-          args: '-noSplash -retry=0 -testSuiteCollectionPath="Test Suites/Carlos_Desktop_CICD" -apiKey="${{ env.API_KEY }}"'
+          args: '-noSplash -retry=0 -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey="${{ env.API_KEY }}" -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io '
