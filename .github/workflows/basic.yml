@@ -41,7 +41,7 @@ jobs:
   trigger_katalon:
     runs-on: ubuntu-latest
     env:
-      API_KEY: 32040497-a65e-43bc-829c-4ce0f8e0fe02
+      API_KEY: 1420ca43-75b5-427a-8d90-f6e644a892a3
     container:
       image:  katalonstudio/katalon
     steps:
