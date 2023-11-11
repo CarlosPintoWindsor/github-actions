@@ -46,7 +46,8 @@ jobs:
       image:  katalonstudio/katalon
     steps:
       - name: Katalon Studio Github Action
-        uses: katalon-studio/katalon-studio-github-action@v2
-        with:
-          version: '7.5.5'
-          args: '-noSplash -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey="${{ env.API_KEY }}" -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io '
+        run:  katalonc.sh -noSplash -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=${{ env.API_KEY }} -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io
+        # uses: katalon-studio/katalon-studio-github-action@v2
+        # with:
+        #   version: '7.5.5'
+        #   args: '-noSplash -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=${{ env.API_KEY }} -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io '
