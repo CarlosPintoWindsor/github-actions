@@ -47,9 +47,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: krishnatayade/automation_both
+          repository: CarlosPintoWindsor/automation
           path: automation_both
-          token: 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
           ref: master
         
         #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
