@@ -43,7 +43,7 @@ jobs:
     env:
       API_KEY: 1420ca43-75b5-427a-8d90-f6e644a892a3
     container:
-      image:  katalonstudio/katalon
+      image:  katalonstudio/katalon:7.9.0
     steps:
       - uses: actions/checkout@v3
         with:
