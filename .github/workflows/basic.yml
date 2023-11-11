@@ -23,7 +23,6 @@ jobs:
       token: "Token"
 
 
-
   pull_request:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
