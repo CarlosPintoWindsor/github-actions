@@ -40,10 +40,10 @@ jobs:
   
   trigger_katalon:
     runs-on: ubuntu-latest
+    env:
+      API_KEY: 32040497-a65e-43bc-829c-4ce0f8e0fe02
     container:
       image:  katalonstudio/katalon
-      env:
-        API_KEY: 32040497-a65e-43bc-829c-4ce0f8e0fe02
     steps:
       - name: Katalon Studio Github Action
         uses: katalon-studio/katalon-studio-github-action@v2
