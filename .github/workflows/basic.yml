@@ -56,11 +56,6 @@ jobs:
           path: automation_both
           ref: master
       
-      - name:  Print directory
-        run: |
-          ls -ll
-          pwd
-
         
         #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       - name: Katalon Studio Github Action
