@@ -57,7 +57,7 @@ jobs:
           ref: master
       
       - name: "Priont git folder data"
-        run: ls ${{ github.workspace }}/automation_both
+        run: ls ${{ github.workspace }}
 
         #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       - name: Katalon Studio Github Action
