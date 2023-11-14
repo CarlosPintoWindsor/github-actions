@@ -64,6 +64,12 @@ jobs:
            version: '8.6.8'
            projectPath: ${{ github.workspace }}/automation_both
            args: '-executionProfile=default -browserType="Chrome"  -testOpsProjectId=1099142 -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true'
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: katalon_log
+          path: /home/runner/.katalon/8.6.8/Katalon_Studio_Engine_Linux_64-8.6.8/configuration/
+          retention-days: 5
 
 #katalon/scripts/katalonc.sh -noSplash  -retry=0  -runMode=console -executionProfile=default -browserType="Chrome"  -testOpsProjectId=1099142 -projectPath=automation -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true        
 
