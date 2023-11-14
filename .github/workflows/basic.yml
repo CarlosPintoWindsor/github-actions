@@ -43,7 +43,7 @@ jobs:
     env:
       API_KEY: 1420ca43-75b5-427a-8d90-f6e644a892a3
     container:
-      image:  katalonstudio/katalon:9.0.0
+      image:  katalonstudio/katalon:8.6.8
     steps:
       - uses: actions/checkout@v3
         with:
@@ -53,8 +53,16 @@ jobs:
         
         #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       - name: Katalon Studio Github Action
-        run:  katalonc.sh -noSplash -browserType=Chrome -projectPath=./automation_both/ -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=${{ env.API_KEY }} -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io
-        # uses: katalon-studio/katalon-studio-github-action@v2
-        # with:
-        #   version: '7.5.5'
-        #   args: '-noSplash -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=${{ env.API_KEY }} -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io '
+        #run:  katalonc.sh -noSplash  -runMode=console -browserType="Chrome"  -testOpsProjectId=1099142 -projectPath=./automation_both/ -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true
+        uses: katalon-studio/katalon-studio-github-action@v2
+        with:
+           version: '7.5.5'
+           projectPath: automation
+           zargs: '-noSplash  -retry=0  -runMode=console -executionProfile=default -browserType="Chrome"  -testOpsProjectId=1099142 -projectPath=automation -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true'
+
+#katalon/scripts/katalonc.sh -noSplash  -retry=0  -runMode=console -executionProfile=default -browserType="Chrome"  -testOpsProjectId=1099142 -projectPath=automation -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true        
+
+#"git clone https://github.com/CarlosPintoWindsor/automation.git automation
+#bash ./katalon/scripts/setup.sh
+
+#docker run -v ./katalon:/katalon -it katalonstudio/katalon:8.6.8 bin/sh    --name katalon      
