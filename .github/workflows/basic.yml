@@ -44,7 +44,7 @@ jobs:
       API_KEY: 1420ca43-75b5-427a-8d90-f6e644a892a3
     defaults:
       run:
-        working-directory: ./automation
+        working-directory: automation
     #container:
     #  image:  katalonstudio/katalon:8.6.8
     
