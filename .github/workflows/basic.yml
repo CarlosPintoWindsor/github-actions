@@ -45,20 +45,22 @@ jobs:
       API_KEY: 1420ca43-75b5-427a-8d90-f6e644a892a3
     defaults:
       run:
-        working-directory: automation
+        working-directory: ./automation
     #container:
     #  image:  katalonstudio/katalon:8.6.8
     
     steps:
+      - name: Print working dir
+        run: |
+          ls -ll
+          dir
+          pwd
       - uses: actions/checkout@v3
         with:
           repository: CarlosPintoWindsor/automation
           path: automation_both
           ref: master
       
-      - name: "Priont git folder data"
-        run: ls ${{ github.workspace }}
-
         #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       - name: Katalon Studio Github Action
         #run:  katalonc.sh -noSplash  -runMode=console -browserType="Chrome"  -testOpsProjectId=1099142 -projectPath=./automation_both/ -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true
