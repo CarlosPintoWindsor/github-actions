@@ -43,9 +43,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       API_KEY: 1420ca43-75b5-427a-8d90-f6e644a892a3
-    defaults:
-      run:
-        working-directory: ./automation
     #container:
     #  image:  katalonstudio/katalon:8.6.8
     
@@ -60,6 +57,9 @@ jobs:
           repository: CarlosPintoWindsor/automation
           path: automation_both
           ref: master
+      
+      - name: "Print working dir"
+        run:  ${{ github.workspace }}/automation_both
       
         #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       - name: Katalon Studio Github Action
