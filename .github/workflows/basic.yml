@@ -42,8 +42,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       API_KEY: 1420ca43-75b5-427a-8d90-f6e644a892a3
-    container:
-      image:  katalonstudio/katalon:8.6.8
+    defaults:
+      run:
+        working-directory: ./automation
+    #container:
+    #  image:  katalonstudio/katalon:8.6.8
+    
     steps:
       - uses: actions/checkout@v3
         with:
@@ -51,16 +55,20 @@ jobs:
           path: automation_both
           ref: master
       
-      - name:  Print dirrectory
-        run: ls -ll
+      - name:  Print directory
+        run: |
+          ls -ll
+          dir
+          pwd
+
         
         #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       - name: Katalon Studio Github Action
         #run:  katalonc.sh -noSplash  -runMode=console -browserType="Chrome"  -testOpsProjectId=1099142 -projectPath=./automation_both/ -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true
         uses: katalon-studio/katalon-studio-github-action@v3.0
         with:
-           version: '7.5.5'
-           projectPath: ${{ github.workspace }}/automation
+           version: '8.6.8'
+           projectPath: ${{ github.workspace }}/automation_both
            args: '-noSplash  -retry=0  -runMode=console -executionProfile=default -browserType="Chrome"  -testOpsProjectId=1099142 -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true'
 
 #katalon/scripts/katalonc.sh -noSplash  -retry=0  -runMode=console -executionProfile=default -browserType="Chrome"  -testOpsProjectId=1099142 -projectPath=automation -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true        
