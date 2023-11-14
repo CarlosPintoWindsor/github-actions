@@ -58,6 +58,8 @@ jobs:
           ls -ll
           dir
           pwd
+          ls ${{ github.workspace }}
+          ls ${{ github.workspace }}/automation
     
         #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       - name: Katalon Studio Github Action
