@@ -17,6 +17,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     uses: CarlosPintoWindsor/gitactions-base/.github/workflows/main.yml@master
+    if: ${{ 1 == 2 }}
     with:
       config-path: "Config Path"
     secrets: 
@@ -58,7 +59,6 @@ jobs:
       - name:  Print directory
         run: |
           ls -ll
-          dir
           pwd
 
         
