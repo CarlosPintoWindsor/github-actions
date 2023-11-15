@@ -6,13 +6,8 @@ echo Trigger Http Rest call
 
 
 get_schedule_exec_details()(
-
-    local SCHEDULE_ID=${1}
-
-    local HTTP_RESPONSE= $(curl --request GET \
-     --url https://testops.katalon.io/api/v1/smart-scheduler/$TEST_RUN \
-     --header 'accept: */*' \
-     --header "authorization: Basic $USER_CREDS"  | jq '.' )
+    echo "TEst Run: $TEST_RUN - Creds: $USER_CREDS"
+    local HTTP_RESPONSE=$(curl --request GET --url https://testops.katalon.io/api/v1/smart-scheduler/$TEST_RUN --header 'accept: */*' --header "authorization: Basic $USER_CREDS"  | jq '.' )
     
     echo $HTTP_RESPONSE
 )
