@@ -37,7 +37,7 @@ jobs:
 
       - name:  Trigger Katalon schedule with `Default` profile 
         run: |
-          curl --request PUT --url https://testops.katalon.io/api/v1/run-configurations/id/execute \
+          curl --request PUT --url https://testops.katalon.io/api/v1/run-configurations/${{env.JOB_SCHEDULE_ID}}/execute \
           --header 'accept: */*' \
           --header 'authorization: Basic ${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS }}'
       - name: Monitor Schedule `${{env.JOB_SCHEDULE_ID}} status` 
