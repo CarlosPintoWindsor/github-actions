@@ -26,6 +26,9 @@ jobs:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Install JQ
+        run: sudo apt-get install jq
+
       - id: encode_creds
         name: Encode Creds for user ${{ env.KATALON_AUTOMATION_USER }}
         run: |
@@ -43,7 +46,7 @@ jobs:
       - name: Monitor Schedule `${{env.JOB_SCHEDULE_ID}} status` 
         run: |
           chmod +x ./scheduler_monitor.sh
-          ./scheduler_monitor.sh "${{env.JOB_SCHEDULE_ID}}"
+          ./scheduler_monitor.sh "${{env.JOB_SCHEDULE_ID}}" "${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS }}"
         
 
 
