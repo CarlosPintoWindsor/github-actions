@@ -28,7 +28,7 @@ jobs:
           echo $ENCODED_BASIC_CREDS > $GITHUB_OUTPUT
         
       - name: Print Creds 
-        run: echo ${{ steps.encode_creds.outputs }}
+        run: echo ${{ steps.encode_creds.outputs.stdout  }}
 
       - name:  Trigger Katalon schedule with `Default` profile 
         if: ${{ 1 == 2 }}
