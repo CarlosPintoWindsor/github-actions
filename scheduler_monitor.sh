@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 TEST_RUN=${1}
 USER_CREDS=${2}
 echo "Monitoring scheduled Run test $TEST_RUN"
