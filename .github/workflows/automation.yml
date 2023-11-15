@@ -6,59 +6,53 @@ name: Automation_CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  JOB_SCHEDULE_ID: 589016
+  KATALON_AUTOMATION_USER: carlosp@windsorstore.com
+  KATAlON_AUTOMATION_USER_PWD: 1420ca43-75b5-427a-8d90-f6e644a892a3
+  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
-    uses: CarlosPintoWindsor/gitactions-base/.github/workflows/main.yml@master
-    if: ${{ 1 == 2 }}
-    with:
-      config-path: "Config Path"
-    secrets: 
-      token: "Token"
-
-
-  pull_request:
+  trigger_scheduler:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Encode Creds for user ${{ env.KATALON_AUTOMATION_USER }}
+        run: export ENCODED_BASIC_CREDS=$(echo -n '${{ env.KATALON_AUTOMATION_USER }}:${{env.KATAlON_AUTOMATION_USER_PWD }}' | base64 -w 0)
+      - name: Print Creds 
+        run: echo $ENCODED_BASIC_CREDS
 
-      - name: Run bash script
+      - name:  Trigger Katalon schedule with `Default` profile 
+        if: ${{ 1 == 2 }}
         run: |
-          echo Workspace $GITHUB_WORKSPACE  
-          ls -la
-          chmod +x ./echo_script.sh
-          ./echo_script.sh
-          echo "${{ toJson(github) }}"
+          curl --request PUT --url https://testops.katalon.io/api/v1/run-configurations/id/execute \
+          --header 'accept: */*' \
+          --header 'authorization: Basic Y2FybG9zcEB3aW5kc29yc3RvcmUuY29tOjE0MjBjYTQzLTc1YjUtNDI3YS04ZDkwLWY2ZTY0NGE4OTJhMw=='
 
-  trigger_katalon:
-    runs-on: ubuntu-latest
-    env:
-      API_KEY: 1420ca43-75b5-427a-8d90-f6e644a892a3
-    container:
-      image:  katalonstudio/katalon:8.6.8
+  # trigger_katalon:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     API_KEY: 1420ca43-75b5-427a-8d90-f6e644a892a3
+  #   container:
+  #     image:  katalonstudio/katalon:8.6.8
     
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          repository: CarlosPintoWindsor/automation
-          path: automation
-          ref: master
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         repository: CarlosPintoWindsor/automation
+  #         path: automation
+  #         ref: master
       
-      - name: Print working dir
-        run: |
-          ls -ll
-          dir
-          pwd
-          ls ${{ github.workspace }}/automation
+  #     - name: Print working dir
+  #       run: |
+  #         ls -ll
+  #         dir
+  #         pwd
+  #         ls ${{ github.workspace }}/automation
     
        #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       #- name: Katalon Studio Github Action
