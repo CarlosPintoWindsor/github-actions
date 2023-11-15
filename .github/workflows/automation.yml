@@ -42,7 +42,7 @@ jobs:
           --header 'authorization: Basic ${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS }}'
       - name: Monitor Schedule `${{env.JOB_SCHEDULE_ID}} status` 
         run: |
-          chmod -x scheduler_monitor.sh
+          chmod +x ./scheduler_monitor.sh
           ./scheduler_monitor.sh "${{env.JOB_SCHEDULE_ID}}"
         
 
