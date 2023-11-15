@@ -33,11 +33,16 @@ jobs:
         run: echo ${{ steps.encode_creds.outputs.ENCODED_BASIC_CREDS  }}
 
       - name:  Trigger Katalon schedule with `Default` profile 
-        if: ${{ 1 == 2 }}
         run: |
           curl --request PUT --url https://testops.katalon.io/api/v1/run-configurations/id/execute \
           --header 'accept: */*' \
-          --header 'authorization: Basic Y2FybG9zcEB3aW5kc29yc3RvcmUuY29tOjE0MjBjYTQzLTc1YjUtNDI3YS04ZDkwLWY2ZTY0NGE4OTJhMw=='
+          --header 'authorization: Basic ${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS }}'
+      - name: Monitor Schedule `${{env.JOB_SCHEDULE_ID}} status` 
+        run: |
+          chmod -x scheduler_monitor.sh
+          ./scheduler_monitor.sh "${{env.JOB_SCHEDULE_ID}}"
+        
+
 
   # trigger_katalon:
   #   runs-on: ubuntu-latest
