@@ -60,18 +60,14 @@ jobs:
           pwd
           ls ${{ github.workspace }}/automation
     
-        #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
+       #run: git clone --branch master https://github.com/krishnatayade/automation_both.git ${{github.workspace}}/automation_both
       - name: Katalon Studio Github Action
-        uses: docker/build-push-action@v5
+        uses: katalon-studio/katalon-studio-github-action@v2.2
+        continue-on-error: true
         with:
-          file: ./katalon.Dockerfile
-          tags: katalon/app:latest
-       # uses: katalon-studio/katalon-studio-github-action@v2.2
-       # continue-on-error: true
-       # with:
-       #   version: '8.1.0'
-       #   projectPath: '${{ github.workspace }}/automation'
-       #   args: '-executionProfile=default -browserType="Chrome"  -testOpsProjectId=1099142 -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true'
+         version: '8.6.8'
+         projectPath: '${{ github.workspace }}/automation'
+         args: '-executionProfile=default -browserType="Chrome"  -testOpsProjectId=1099142 -testSuitePath="Test Suites/Carlos_Desktop_CICD" -apiKey=1420ca43-75b5-427a-8d90-f6e644a892a3 -sendMail=carlosp@windsorstore.com -serverUrl=https://testops.katalon.io --config -webui.autoUpdateDrivers=true'
         
       #- name: 'Upload Artifact'
       #  uses: actions/upload-artifact@v3
