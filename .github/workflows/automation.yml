@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Encode Creds for user ${{ env.KATALON_AUTOMATION_USER }}
-        run: export ENCODED_BASIC_CREDS=$(echo -n '${{ env.KATALON_AUTOMATION_USER }}:${{env.KATAlON_AUTOMATION_USER_PWD }}' | base64 -w 0)
+        run: ENCODED_BASIC_CREDS=$(echo -n '${{ env.KATALON_AUTOMATION_USER }}:${{env.KATAlON_AUTOMATION_USER_PWD }}' | base64 -w 0)
       - name: Print Creds 
         run: echo $ENCODED_BASIC_CREDS
 
