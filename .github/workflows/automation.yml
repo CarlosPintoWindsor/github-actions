@@ -21,10 +21,14 @@ jobs:
   trigger_scheduler:
     runs-on: ubuntu-latest
     steps:
-      - name: Encode Creds for user ${{ env.KATALON_AUTOMATION_USER }}
-        run: ENCODED_BASIC_CREDS=$(echo -n '${{ env.KATALON_AUTOMATION_USER }}:${{env.KATAlON_AUTOMATION_USER_PWD }}' | base64 -w 0)
+      - id: encode_creds
+        name: Encode Creds for user ${{ env.KATALON_AUTOMATION_USER }}
+        run: |
+          ENCODED_BASIC_CREDS=$(echo -n '${{ env.KATALON_AUTOMATION_USER }}:${{env.KATAlON_AUTOMATION_USER_PWD }}' | base64 -w 0)
+          echo $ENCODED_BASIC_CREDS > $GITHUB_OUTPUT
+        
       - name: Print Creds 
-        run: echo $ENCODED_BASIC_CREDS
+        run: echo ${{ steps.encode_creds.outputs }}
 
       - name:  Trigger Katalon schedule with `Default` profile 
         if: ${{ 1 == 2 }}
