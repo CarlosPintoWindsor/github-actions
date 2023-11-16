@@ -15,6 +15,6 @@ runs:
     - id: encode_creds
       name: Encode Creds for user ${{ inputs.WORKFLOW_USER }}
       run: |
-        ENCODED_BASIC=$(echo -n '${{ inputs.WORKFLOW_USER }}:${{secrets.WORKFLOW_USER_PWD }}' | base64 -w 0)
+        ENCODED_BASIC=$(echo -n '${{ inputs.WORKFLOW_USER }}:${{inputs.WORKFLOW_USER_PWD }}' | base64 -w 0)
         echo "ENCODED_BASIC=$ENCODED_BASIC" >> $GITHUB_OUTPUT
       shell: bash
