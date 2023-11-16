@@ -54,7 +54,7 @@ jobs:
           
   manual:
     runs-on: ubuntu-latest
-    environment: Manual
+    environment: Manually
     steps:
       - name: echo
         run: echo Manual Pproved
