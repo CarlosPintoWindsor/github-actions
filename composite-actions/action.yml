@@ -1,12 +1,13 @@
 name: CredsEncoder
+description: CredsEncoder
 
 inputs:
   WORKFLOW_USER:
+    description: "Workflow user"
     required: true
-    type: string
   WORKFLOW_USER_PWD:
+    description: "Workflow user pwd"
     required: true
-    type: String
 
 runs:
   using: "composite"
@@ -16,3 +17,4 @@ runs:
       run: |
         ENCODED_BASIC=$(echo -n '${{ inputs.WORKFLOW_USER }}:${{secrets.WORKFLOW_USER_PWD }}' | base64 -w 0)
         echo "ENCODED_BASIC=$ENCODED_BASIC" >> $GITHUB_OUTPUT
+      shell: bash
