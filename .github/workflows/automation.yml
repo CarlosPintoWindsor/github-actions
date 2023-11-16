@@ -19,8 +19,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - id: encode_creds
-        uses: ./encode_creds.yml
+        uses: ./composite-actions/encode_creds.yml
         with:
           WORKFLOW_USER: "${{vars.KATALON_AUTOMATION_USER}}"
           WORKFLOW_USER_PWD: ${{vars.KATALON_AUTOMATION_USER_PWD}}
