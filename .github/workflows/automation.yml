@@ -9,26 +9,20 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-env:
-  PROJECT_ID: 1099142
-  JOB_SCHEDULE_ID: 589016
-  KATALON_AUTOMATION_USER: carlosp@windsorstore.com
-  KATAlON_AUTOMATION_USER_PWD: 1420ca43-75b5-427a-8d90-f6e644a892a3
-  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   
   trigger_scheduler:
     runs-on: ubuntu-latest
-    environment: Manually
+    environment: PreProd
     outputs:
       ENCODED_BASIC_CREDS: ${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS}}
     steps:
       - id: encode_creds
         name: Encode Creds for user ${{ env.KATALON_AUTOMATION_USER }}
         run: |
-          ENCODED_BASIC_CREDS=$(echo -n '${{ env.KATALON_AUTOMATION_USER }}:${{env.KATAlON_AUTOMATION_USER_PWD }}' | base64 -w 0)
+          ENCODED_BASIC_CREDS=$(echo -n '${{ env.KATALON_AUTOMATION_USER }}:${{secrets.KATAlON_AUTOMATION_USER_PWD }}' | base64 -w 0)
           echo "ENCODED_BASIC_CREDS=$ENCODED_BASIC_CREDS" >> $GITHUB_OUTPUT
         
       - name: Print Creds 
