@@ -25,7 +25,8 @@ get_schedule_exec_details()(
     echo
     # https://testops.katalon.io/api/v1/executions?projectId=1099142&order=620
     #Y2FybG9zcEB3aW5kc29yc3RvcmUuY29tOjE0MjBjYTQzLTc1YjUtNDI3YS04ZDkwLWY2ZTY0NGE4OTJhMw==
-    local TEST_RUN_RESPONSE=$(curl --request GET --url "https://testops.katalon.io/api/v1/executions?projectId=1099142&order=621" --header 'accept: */*' --header "authorization: Basic Y2FybG9zcEB3aW5kc29yc3RvcmUuY29tOjE0MjBjYTQzLTc1YjUtNDI3YS04ZDkwLWY2ZTY0NGE4OTJhMw=="  | jq -r '.' )
+    #local TEST_RUN_RESPONSE=$(curl --request GET --url "https://testops.katalon.io/api/v1/executions?projectId=$&order=621" --header 'accept: */*' --header "authorization: Basic Y2FybG9zcEB3aW5kc29yc3RvcmUuY29tOjE0MjBjYTQzLTc1YjUtNDI3YS04ZDkwLWY2ZTY0NGE4OTJhMw=="  | jq -r '.' )
+    local TEST_RUN_RESPONSE=$(curl --request GET --url "https://testops.katalon.io/api/v1/executions?projectId=$PROJECT_ID&order=$EXECUTION_ID" --header 'accept: */*' --header "authorization: Basic $USER_CREDS"  | jq -r '.' )
     local JOBS=$(echo "$TEST_RUN_RESPONSE" | jq  -c '.jobs')
     local JOBS_LENGTH=$(echo "$JOBS" | jq length)
     echo
