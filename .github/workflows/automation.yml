@@ -52,6 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [prep_env,trigger_scheduler]
     steps:
+      - uses: actions/checkout@v3
       - name: Monitor Schedule `${{env.JOB_SCHEDULE_ID}} status` 
         run: |
           chmod +x ./scheduler_monitor.sh
