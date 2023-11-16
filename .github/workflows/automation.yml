@@ -17,22 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     environment: PreProd
     outputs:
-      ENCODED_BASIC_CREDS: ${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS}}
+      ENCODED_BASIC: ${{steps.encode_creds.outputs.ENCODED_BASIC}}
     steps:
       - id: encode_creds
         name: Encode Creds for user ${{ vars.KATALON_AUTOMATION_USER }}
         run: |
-          ENCODED_BASIC_CREDS=$(echo -n '${{ vars.KATALON_AUTOMATION_USER }}:${{secrets.KATAlON_AUTOMATION_USER_PWD }}' | base64 -w 0)
-          echo "ENCODED_BASIC_CREDS=$ENCODED_BASIC_CREDS" >> $GITHUB_OUTPUT
+          ENCODED_BASIC=$(echo -n '${{ vars.KATALON_AUTOMATION_USER }}:${{secrets.KATAlON_AUTOMATION_USER_PWD }}' | base64 -w 0)
+          echo "ENCODED_BASIC=$ENCODED_BASIC" >> $GITHUB_OUTPUT
         
       - name: Print Creds 
-        run: echo ${{ steps.encode_creds.outputs.ENCODED_BASIC_CREDS  }}
+        run: echo ${{ steps.encode_creds.outputs.ENCODED_BASIC  }}
 
       - name:  Trigger Katalon schedule with `Default` profile 
         run: |
           curl --request PUT --url https://testops.katalon.io/api/v1/run-configurations/${{vars.JOB_SCHEDULE_ID}}/execute \
           --header 'accept: */*' \
-          --header 'authorization: Basic ${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS }}'
+          --header 'authorization: Basic ${{steps.encode_creds.outputs.ENCODED_BASIC }}'
 
 
   monitor_scheduler:
@@ -44,7 +44,7 @@ jobs:
       - name: Monitor Schedule `${{vars.JOB_SCHEDULE_ID}} status` 
         run: |
           chmod +x ./scheduler_monitor.sh
-          ./scheduler_monitor.sh "${{vars.JOB_SCHEDULE_ID}}" "${{vars.PROJECT_ID }}" "${{needs.trigger_scheduler.outputs.ENCODED_BASIC_CREDS }}"
+          ./scheduler_monitor.sh "${{vars.JOB_SCHEDULE_ID}}" "${{vars.PROJECT_ID }}" "${{needs.trigger_scheduler.outputs.ENCODED_BASIC }}"
 
   # trigger_katalon:
   #   runs-on: ubuntu-latest
