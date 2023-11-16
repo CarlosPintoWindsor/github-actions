@@ -9,6 +9,11 @@ inputs:
     description: "Workflow user pwd"
     required: true
 
+outputs:
+  ENCODED_BASIC:
+    description: "Creds encoded to basic format"
+    value: ${{ steps.encode_creds.outputs.ENCODED_BASIC }}
+
 runs:
   using: "composite"
   steps:
