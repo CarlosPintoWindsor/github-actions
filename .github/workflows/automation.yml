@@ -39,7 +39,6 @@ jobs:
         run: echo ${{ steps.encode_creds.outputs.ENCODED_BASIC_CREDS  }}
 
       - name:  Trigger Katalon schedule with `Default` profile 
-        if: ${{ 1 == 3 }}
         run: |
           curl --request PUT --url https://testops.katalon.io/api/v1/run-configurations/${{env.JOB_SCHEDULE_ID}}/execute \
           --header 'accept: */*' \
