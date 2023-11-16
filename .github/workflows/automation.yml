@@ -24,8 +24,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: Install JQ
-        run: sudo apt-get install jq
+      #- name: Install JQ
+      #  run: sudo apt-get install jq
   
   trigger_scheduler:
     runs-on: ubuntu-latest
