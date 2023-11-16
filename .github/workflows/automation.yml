@@ -42,10 +42,17 @@ jobs:
     needs: trigger_scheduler
     steps:
       - uses: actions/checkout@v3
+
+      - id: encode_creds
+        uses: ./composite-actions
+        with:
+          WORKFLOW_USER: "${{vars.KATALON_AUTOMATION_USER}}"
+          WORKFLOW_USER_PWD: ${{vars.KATALON_AUTOMATION_USER_PWD}}
+
       - name: Monitor Schedule `${{vars.JOB_SCHEDULE_ID}} status` 
         run: |
           chmod +x ./scheduler_monitor.sh
-          ./scheduler_monitor.sh "${{vars.JOB_SCHEDULE_ID}}" "${{vars.PROJECT_ID }}" "${{needs.trigger_scheduler.outputs.ENCODED_BASIC }}"
+          ./scheduler_monitor.sh "${{vars.JOB_SCHEDULE_ID}}" "${{vars.PROJECT_ID }}" "${{steps.encode_creds.outputs.ENCODED_BASIC  }}"
 
   # trigger_katalon:
   #   runs-on: ubuntu-latest
