@@ -5,7 +5,7 @@ USER_CREDS=${3}
 
 SUCESS_STRING=SUCCESS
 FAILED_STRING=FAILED
-SLEEP_TIME=30
+SLEEP_TIME=60
 echo "Monitoring scheduled TestRun: $TEST_RUN for ProjectId: $PROJECT_ID "
 echo 
 
@@ -21,7 +21,7 @@ get_schedule_exec_details()(
     local LATEST_JOB=$(echo $RUNNING_CONFIG | jq '.latestJob' )
     local EXECUTION_ID=$(echo $LATEST_JOB | jq -r '.execution.order')
     echo
-    echo "Schedule ID: $SCHEDULE_ID - Schedule Name: $SCHEDULE_NAME"
+    echo "Schedule ID: $SCHEDULE_ID - Schedule Name: $SCHEDULE_NAME - ExecutionId: $EXECUTION_ID"
     echo
     # https://testops.katalon.io/api/v1/executions?projectId=1099142&order=620
     #Y2FybG9zcEB3aW5kc29yc3RvcmUuY29tOjE0MjBjYTQzLTc1YjUtNDI3YS04ZDkwLWY2ZTY0NGE4OTJhMw==

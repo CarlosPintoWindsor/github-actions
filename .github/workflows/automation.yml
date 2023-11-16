@@ -19,17 +19,19 @@ env:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
+  prep_env:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - name: Install JQ
+        run: sudo apt-get install jq
+  
   trigger_scheduler:
     runs-on: ubuntu-latest
     outputs:
       ENCODED_BASIC_CREDS: ${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS}}
     steps:
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      - name: Install JQ
-        run: sudo apt-get install jq
-
       - id: encode_creds
         name: Encode Creds for user ${{ env.KATALON_AUTOMATION_USER }}
         run: |
@@ -45,10 +47,15 @@ jobs:
           --header 'accept: */*' \
           --header 'authorization: Basic ${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS }}'
 
+
+  monitor_scheduler:
+    runs-on: ubuntu-latest
+    needs: [prep_env,trigger_scheduler]
+    steps:
       - name: Monitor Schedule `${{env.JOB_SCHEDULE_ID}} status` 
         run: |
           chmod +x ./scheduler_monitor.sh
-          ./scheduler_monitor.sh "${{env.JOB_SCHEDULE_ID}}" "${{env.PROJECT_ID }}" "${{steps.encode_creds.outputs.ENCODED_BASIC_CREDS }}"
+          ./scheduler_monitor.sh "${{env.JOB_SCHEDULE_ID}}" "${{env.PROJECT_ID }}" "${{needs.trigger_scheduler.outputs.ENCODED_BASIC_CREDS }}"
           
 
 
