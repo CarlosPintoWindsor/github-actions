@@ -16,14 +16,13 @@ jobs:
   trigger_scheduler:
     runs-on: ubuntu-latest
     environment: PreProd
-    outputs:
-      ENCODED_BASIC: ${{steps.encode_creds.outputs.ENCODED_BASIC}}
+
     steps:
       - id: encode_creds
-        name: Encode Creds for user ${{ vars.KATALON_AUTOMATION_USER }}
-        run: |
-          ENCODED_BASIC=$(echo -n '${{ vars.KATALON_AUTOMATION_USER }}:${{vars.KATALON_AUTOMATION_USER_PWD }}' | base64 -w 0)
-          echo "ENCODED_BASIC=$ENCODED_BASIC" >> $GITHUB_OUTPUT
+        uses: ./.github/workflows/encode_creds.yml
+        with:
+          WORKFLOW_USER: "${{vars.KATALON_AUTOMATION_USER}}"
+          WORKFLOW_USER_PWD: ${{vars.KATALON_AUTOMATION_USER_PWD}}
         
       - name: Print Creds 
         run: echo ${{ steps.encode_creds.outputs.ENCODED_BASIC  }}
